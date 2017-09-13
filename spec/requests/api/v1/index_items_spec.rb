@@ -1,12 +1,13 @@
 require 'rails_helper'
-RSpec.describe "GET /api/v1/items" do
+RSpec.describe "items api" do
   it "returns all items" do
+    create_list(:item, 3)
     # When I send a GET request to `/api/v1/items`
     get '/api/v1/items'
 
     output = JSON.parse(response.body)
     # I receive a 200 JSON response containing all items
-    expect(response).to eq(200)
+    expect(response).to be_success
     # And each item has an id, name, description, and image_url but not the created_at or updated_at
     expect(output.first["name"]).to eq("Heavy Duty Wooden Pants")
     expect(output.first["id"]).to eq(1)
@@ -15,10 +16,16 @@ RSpec.describe "GET /api/v1/items" do
     expect(output.first["created_at"]).to eq(nil)
     expect(output.first["updated_at"]).to eq(nil)
   end
+
+  # it "returns one specific item" do
+  #   # When I send a GET request to `/api/v1/items/1`
+  #
+  #   get '/api/v1/items/'
+  #   # I receive a 200 JSON response containing the id, name, description, and image_url but not the created_at or updated_at
+  # end
 end
-# When I send a GET request to `/api/v1/items/1`
-# I receive a 200 JSON response containing the id, name, description, and image_url but not the created_at or updated_at
-#
+
+
 # When I send a DELETE request to `/api/v1/items/1`
 # I receive a 204 JSON response if the record is successfully deleted
 #
