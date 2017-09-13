@@ -18,7 +18,11 @@ RSpec.describe "search by location" do
     within("ul") do
       expect(page).to have_css('li', count: 10)
       # And I should see the long name, city, distance, phone number and store type for each of the 10 results
-      expect(page).to have_content("")
+      expect(page).to have_content("Cherry Creek Shopping Center")
+      expect(page).to have_content("Denver")
+      expect(page).to have_content("303-270-9189")
+      expect(page).to have_content("3.45")
+      expect(page).to have_content("Mobile SAS")
     end
   end
 end
