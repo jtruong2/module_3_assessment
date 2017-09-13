@@ -1,6 +1,5 @@
 class Api::V1::ItemsController < ApplicationController
   def index
-    item = Item.all
-    render json: Item.all
+    render json: Item.items_without_date
   end
 end

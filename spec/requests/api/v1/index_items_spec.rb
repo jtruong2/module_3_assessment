@@ -3,7 +3,7 @@ RSpec.describe "items api" do
   it "returns all items" do
     create_list(:item, 3)
     # When I send a GET request to `/api/v1/items`
-    get '/api/v1/items'
+    get "/api/v1/items"
 
     output = JSON.parse(response.body)
     # I receive a 200 JSON response containing all items
@@ -17,12 +17,22 @@ RSpec.describe "items api" do
     expect(output.first["updated_at"]).to eq(nil)
   end
 
-  # it "returns one specific item" do
-  #   # When I send a GET request to `/api/v1/items/1`
-  #
-  #   get '/api/v1/items/'
-  #   # I receive a 200 JSON response containing the id, name, description, and image_url but not the created_at or updated_at
-  # end
+  it "returns one specific item" do
+    item = create(:item)
+    # When I send a GET request to `/api/v1/items/1`
+    get "/api/v1/items/#{item.id}"
+
+    output = JSON.parse(response.body)
+    # I receive a 200 JSON response containing the id, name, description, and image_url but not the created_at or updated_at
+    expect(response).to be_success
+    expect(output["id"]).to eq(item.id)
+    expect(output["name"]).to eq(item.name)
+    expect(output["description"]).to eq(item.name)
+    expect(output["image_url"]).to eq(item.name)
+    expect(output["created_at"]).to eq(nil)
+    expect(output["created_at"]).to eq(nil)
+
+  end
 end
 
 

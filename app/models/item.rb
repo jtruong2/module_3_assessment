@@ -3,8 +3,6 @@ class Item < ActiveRecord::Base
   has_many :orders, through: :order_items
 
   def self.items_without_date
-    items = Item.all
-    items.map do |item|
-      item.attributes.reject { |}
+    Item.all.select(:id, :name, :description, :image_url)
   end
 end
