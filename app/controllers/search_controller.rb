@@ -1,6 +1,7 @@
 class SearchController < ApplicationController
   def index
-    Store.search_by_zip(safe_params)
+    stores = Store.search_by_zip(safe_params)
+    @presenter = SearchPresenter.new(stores)
   end
 
   private
