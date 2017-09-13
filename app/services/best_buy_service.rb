@@ -1,7 +1,6 @@
 class BestBuyService
   def initialize(zipcode)
-    @zipcode = zipcode
-    @conn = Faraday.new("https://api.bestbuy.com/")
+    @zipcode = zipcode["search"]
   end
 
   def self.search_by_zipcode(zipcode)
@@ -9,8 +8,8 @@ class BestBuyService
   end
 
   def search_by_zipcode
-    response = @conn.get("v1/stores(area(#{@zipcode},25))?format=json&show=storeId,storeType,longName,city,distance,phone&,name&pageSize=2&apiKey=#{ENV["API-KEY"]}")
-    output = JSON.parse(response)
+    response = Faraday.get("https://api.bestbuy.com/v1/stores(area(#{@zipcode},25))?format=json&show=storeId,storeType,longName,city,distance,phone&apiKey=#{ENV["API-KEY"]}")
+    output = JSON.parse(response.body)
     byebug
   end
 end
