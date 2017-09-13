@@ -11,7 +11,8 @@ gem "jbuilder", "~> 2.0"
 gem "faker"
 gem "therubyracer"
 gem "less-rails-bootstrap"
-gem "minitest-rails"
+gem "faraday"
+gem 'figaro'
 
 group :development do
   gem "spring"
@@ -25,5 +26,5 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'launchy'
-
+  gem 'awesome_print'
 end
