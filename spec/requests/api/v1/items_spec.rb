@@ -27,18 +27,38 @@ RSpec.describe "items api" do
     expect(response).to be_success
     expect(output["id"]).to eq(item.id)
     expect(output["name"]).to eq(item.name)
-    expect(output["description"]).to eq(item.name)
-    expect(output["image_url"]).to eq(item.name)
+    expect(output["description"]).to eq(item.description)
+    expect(output["image_url"]).to eq(item.image_url)
     expect(output["created_at"]).to eq(nil)
     expect(output["created_at"]).to eq(nil)
   end
+
+  it "deletes a specific item" do
+    item = create(:item)
+    item2 = create(:item)
+    # When I send a DELETE request to `/api/v1/items/1`
+    delete "/api/v1/items/#{item.id}"
+    # I receive a 204 JSON response if the record is successfully deleted
+    output = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(output.first["id"]).to_not eq(item.id)
+  end
+
+  it "creates a new item" do
+    item = build(:item)
+    # When I send a POST request to `/api/v1/items` with a name, description, and image_url
+    post "/api/v1/items?name=#{item.name}&description=#{item.description}&image_url=#{item.image_url}"
+
+    output = JSON.parse(response.body)
+    # I receive a 201 JSON  response if the record is successfully created
+    expect(response.to be_success)
+    # And I receive a JSON response containing the id, name, description, and image_url but not the created_at or updated_at
+    expect(output["id"]).to eq(item.id)
+    expect(output["name"]).to eq(item.name)
+    expect(output["description"]).to eq(item.description)
+    expect(output["image_url"]).to eq(item.image_url)
+    expect(output["created_at"]).to eq(nil)
+    expect(output["updated_at"]).to eq(nil)
+  end
 end
-
-
-# When I send a DELETE request to `/api/v1/items/1`
-# I receive a 204 JSON response if the record is successfully deleted
-#
-# When I send a POST request to `/api/v1/items` with a name, description, and image_url
-# I receive a 201 JSON  response if the record is successfully created
-# And I receive a JSON response containing the id, name, description, and image_url but not the created_at or updated_at
-# end
