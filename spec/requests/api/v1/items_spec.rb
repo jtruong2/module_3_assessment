@@ -31,7 +31,6 @@ RSpec.describe "items api" do
     expect(output["image_url"]).to eq(item.name)
     expect(output["created_at"]).to eq(nil)
     expect(output["created_at"]).to eq(nil)
-
   end
 end
 
