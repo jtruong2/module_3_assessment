@@ -13,5 +13,14 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def create
+    item = Item.create(safe_params)
+    render json: Item.item_without_date(item.id)
   end
+
+  private
+
+  def safe_params
+    params.permit(:name, :description, :image_url)
+  end
+
 end

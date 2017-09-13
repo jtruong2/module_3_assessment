@@ -12,7 +12,7 @@ RSpec.describe "items api" do
     expect(output.first["name"]).to eq("Heavy Duty Wooden Pants")
     expect(output.first["id"]).to eq(1)
     expect(output.first["description"]).to eq("Nihil corporis non nostrum possimus voluptatem aut rerum. Repellat autem error explicabo voluptas ut deleniti eveniet. Accusamus asperiores laborum et. Consequuntur et quos officiis in sunt inventore eum. Aliquid magni tenetur pariatur suscipit non.")
-    expect(output.first["image_url"]).to eq("http://robohash.org/0.png?set=set2&bgset=bg1&size=200x200")
+    expect(output.first["image_url"]).to eq("http://robohash.org/0.png?set=set2")
     expect(output.first["created_at"]).to eq(nil)
     expect(output.first["updated_at"]).to eq(nil)
   end
@@ -52,9 +52,9 @@ RSpec.describe "items api" do
 
     output = JSON.parse(response.body)
     # I receive a 201 JSON  response if the record is successfully created
-    expect(response.to be_success)
+    expect(response).to be_success
     # And I receive a JSON response containing the id, name, description, and image_url but not the created_at or updated_at
-    expect(output["id"]).to eq(item.id)
+    expect(output["id"]).to eq(1)
     expect(output["name"]).to eq(item.name)
     expect(output["description"]).to eq(item.description)
     expect(output["image_url"]).to eq(item.image_url)
